@@ -3,10 +3,8 @@ use std::process;
 use cli_grep::Config;
 
 fn main() {
-    //parsing arguments
-    let args: Vec<String>=env::args().collect(); //args function to produce an iterator and collect() turn the iterated values into a vector
-    
-    let config=Config::build(&args).unwrap_or_else(|err|{
+    //env::args() returns an iterator and we pass the ownership of the iterator values into Config::build directly
+    let config=Config::build(env::args()).unwrap_or_else(|err|{
         eprintln!("Problem parsing arguments:{err}");
         process::exit(1);
     });
